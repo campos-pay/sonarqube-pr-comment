@@ -1,6 +1,9 @@
 name: "SonarQube Pull Request Comment"
 description: >
   Check if a project / analysis passed the Quality Gate check
+branding:
+  icon: 'git-pull-request'
+  color: 'green'
 inputs:
   sonar_url:
     description: "SonarQube Url"
