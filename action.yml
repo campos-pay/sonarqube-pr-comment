@@ -5,7 +5,7 @@ branding:
   icon: 'git-pull-request'
   color: 'green'
 inputs:
-  sonar_url:
+  sonar_host_url:
     description: "SonarQube Url"
     required: true
   sonar_token:
@@ -30,7 +30,7 @@ runs:
       shell: bash
       run: $GITHUB_ACTION_PATH/script/project-status.sh
       env: 
-       SONAR_HOST_URL: ${{ inputs.sonar_url }}
+       SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
        SONAR_TOKEN: ${{ inputs.sonar_token }}
        SONAR_PROJETCKEY: ${{ inputs.sonar_projetckey }}
      
