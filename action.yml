@@ -1,0 +1,44 @@
+name: "Sonar Check Status and comment PR"
+inputs:
+  sonar_url:
+    description: "SonarQube Url"
+    required: true
+  sonar_token:
+    description: "Token Project Sonar"
+    required: true
+  sonar_projetckey:
+    description: "Name Project"
+    required: true
+  github-token:
+    description: "GitHub Token"
+    required: true
+outputs:
+  quality_check:
+    description: >
+      The resulting Status SonarQube.
+      
+runs:
+  using: "composite"
+  steps:
+    - name: Checking Sonar
+      id: check
+      shell: bash
+      run: $GITHUB_ACTION_PATH/script/project-status.sh
+      env: 
+       SONAR_HOST_URL: ${{ inputs.sonar_url }}
+       SONAR_TOKEN: ${{ inputs.sonar_token }}
+       SONAR_PROJETCKEY: ${{ inputs.sonar_projetckey }}
+     
+    - name: PR Comment
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{inputs.github-token}}
+        script: |
+          github.issues.createComment({
+            issue_number: ${{ github.event.number }},
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `${{ steps.check.outputs.quality_check }}`
+          })
+
+
