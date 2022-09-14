@@ -1,4 +1,6 @@
-name: "Sonar Check Status and comment PR"
+name: "SonarQube Pull Request Comment"
+description: >
+  Check if a project / analysis passed the Quality Gate check
 inputs:
   sonar_url:
     description: "SonarQube Url"
@@ -15,7 +17,7 @@ inputs:
 outputs:
   quality_check:
     description: >
-      The resulting Status SonarQube.
+      The resulting Status SonarQube 
       
 runs:
   using: "composite"
