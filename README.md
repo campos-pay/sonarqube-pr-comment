@@ -55,7 +55,7 @@ jobs:
 
      - name: SonarQube Pull Request Comment
        if: always()
-       uses: campos-pay/sonarqube-pr-comment@v0.1.0
+       uses: campos-pay/sonarqube-pr-comment@main
        with:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
