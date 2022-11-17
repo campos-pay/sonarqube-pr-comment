@@ -31,5 +31,7 @@ fi
 }
 
 result=$(codeValidation)
-echo "::set-output name=quality_check::$result"
+# echo "::set-output name=quality_check::$result"
+
+echo "code=quality_check" >>$result
 
