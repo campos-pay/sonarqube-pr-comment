@@ -41,5 +41,5 @@ fi
 # echo "$result" >> $GITHUB_OUTPUT
 # echo "EOF" >> $GITHUB_OUTPUT
 
-echo "quality_check=${result}" >> $GITHUB_OUTPUT
+echo "quality_check=${codeOk}" >> $GITHUB_OUTPUT
 
