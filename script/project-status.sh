@@ -8,14 +8,14 @@ project_status="$(curl -s -u ${SONAR_TOKEN}: -G --data-urlencode --data-urlencod
 ${projectStatusUrl})"
 
 codeOk=$(jq -r '.projectStatus.conditions[] | select(.status=="OK") | "\n✅Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "ActualValue: " + .actualValue' <<< "$project_status")
-codeOk="${codeOk//'%'/'%25'}"
-codeOk="${codeOk//$'\n'/'%0A'}"
-codeOk="${codeOk//$'\r'/'%0D'}"
+# codeOk="${codeOk//'%'/'%25'}"
+# codeOk="${codeOk//$'\n'/'%0A'}"
+# codeOk="${codeOk//$'\r'/'%0D'}"
 
 codeFail=$(jq -r '.projectStatus.conditions[] | select(.status=="ERROR") | "\n💣Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "ActualValue: " + .actualValue' <<< "$project_status")
-codeFail="${codeFail//'%'/'%25'}"
-codeFail="${codeFail//$'\n'/'%0A'}"
-codeFail="${codeFail//$'\r'/'%0D'}"
+# codeFail="${codeFail//'%'/'%25'}"
+# codeFail="${codeFail//$'\n'/'%0A'}"
+# codeFail="${codeFail//$'\r'/'%0D'}"
 
 error="ERROR CONFIGURATION"
 
