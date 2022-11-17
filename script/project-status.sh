@@ -7,15 +7,15 @@ projectStatusUrl="${SONAR_HOST_URL}/api/qualitygates/project_status?projectKey=$
 project_status="$(curl -s -u ${SONAR_TOKEN}: -G --data-urlencode --data-urlencode \
 ${projectStatusUrl})"
 
-codeOk=$(jq -r '.projectStatus.conditions[] | select(.status=="OK") | "\n✅Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "ActualValue: " + .actualValue' <<< "$project_status")
+codeOk=$(jq -r '.projectStatus.conditions[] | select(.status=="OK") | "\n✅Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "\nActualValue: " + .actualValue' <<< "$project_status")
 # codeOk="${codeOk//'%'/'%25'}"
 # codeOk="${codeOk//$'\n'/'%0A'}"
 # codeOk="${codeOk//$'\r'/'%0D'}"
 # codeOk=$(echo $codeOk | tr -s '\n' '\n')
 
-echo "code<<EOF" >> $GITHUB_OUTPUT
-echo "$codeOk" >> $GITHUB_OUTPUT
-echo "EOF" >> $GITHUB_OUTPUT
+# echo "code<<EOF" >> $GITHUB_OUTPUT
+# echo "$codeOk" >> $GITHUB_OUTPUT
+# echo "EOF" >> $GITHUB_OUTPUT
 
 
 codeFail=$(jq -r '.projectStatus.conditions[] | select(.status=="ERROR") | "\n💣Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "ActualValue: " + .actualValue' <<< "$project_status")
@@ -37,12 +37,12 @@ else
 fi
 }
 
-result=$(codeValidation)
+# result=$(codeValidation)
 # echo "::set-output name=quality_check::$result"
 
-# echo "quality_check<<EOF" >> $GITHUB_OUTPUT
-# echo "$result" >> $GITHUB_OUTPUT
-# echo "EOF" >> $GITHUB_OUTPUT
+echo "quality_check<<EOF" >> $GITHUB_OUTPUT
+echo "$codeOk" >> $GITHUB_OUTPUT
+echo "EOF" >> $GITHUB_OUTPUT
 
-echo "quality_check=$code" >> $GITHUB_OUTPUT
+# echo "quality_check=$code" >> $GITHUB_OUTPUT
 
