@@ -11,7 +11,7 @@ codeOk=$(jq -r '.projectStatus.conditions[] | select(.status=="OK") | "\n✅Stat
 # codeOk="${codeOk//'%'/'%25'}"
 # codeOk="${codeOk//$'\n'/'%0A'}"
 # codeOk="${codeOk//$'\r'/'%0D'}"
-# codeOk=$(echo $codeOk | tr -s '\n' '\n')
+
 
 # echo "code<<EOF" >> $GITHUB_OUTPUT
 # echo "$codeOk" >> $GITHUB_OUTPUT
@@ -37,11 +37,11 @@ else
 fi
 }
 
-# result=$(codeValidation)
+result=$(codeValidation)
 # echo "::set-output name=quality_check::$result"
 
 echo "quality_check<<EOF" >> $GITHUB_OUTPUT
-echo "$codeOk" >> $GITHUB_OUTPUT
+echo "$result" >> $GITHUB_OUTPUT
 echo "EOF" >> $GITHUB_OUTPUT
 
 # echo "quality_check=$code" >> $GITHUB_OUTPUT
