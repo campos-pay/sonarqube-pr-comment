@@ -37,9 +37,9 @@ fi
 # result=$(codeValidation)
 # echo "::set-output name=quality_check::$result"
 
-echo "quality_check<<EOF" >> $GITHUB_OUTPUT
-echo "$result" >> $GITHUB_OUTPUT
-echo "EOF" >> $GITHUB_OUTPUT
+# echo "quality_check<<EOF" >> $GITHUB_OUTPUT
+# echo "$result" >> $GITHUB_OUTPUT
+# echo "EOF" >> $GITHUB_OUTPUT
 
 echo "quality_check=${result}" >> $GITHUB_OUTPUT
 
