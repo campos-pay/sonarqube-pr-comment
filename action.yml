@@ -32,7 +32,7 @@ runs:
       env: 
        SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
        SONAR_TOKEN: ${{ inputs.sonar_token }}
-       SSONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
+       SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
      
     - name: PR Comment
       uses: actions/github-script@v6
