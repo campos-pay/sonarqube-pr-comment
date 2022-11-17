@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-qualityGateUrl="${SONAR_HOST_URL}/api/qualitygates/project_status?projectKey=${SONAR_PROJETCKEY}"
+qualityGateUrl="${SONAR_HOST_URL}/api/qualitygates/project_status?projectKey=${SONAR_PROJECTKEY}"
 qualityGateStatus="$(curl --silent --fail --show-error --user "${SONAR_TOKEN}": "${qualityGateUrl}" | jq -r '.projectStatus.status')"
 
-projectStatusUrl="${SONAR_HOST_URL}/api/qualitygates/project_status?projectKey=${SONAR_PROJETCKEY}"
+projectStatusUrl="${SONAR_HOST_URL}/api/qualitygates/project_status?projectKey=${SONAR_PROJECTKEY}"
 project_status="$(curl -s -u ${SONAR_TOKEN}: -G --data-urlencode --data-urlencode \
 ${projectStatusUrl})"
 
