@@ -11,7 +11,7 @@ inputs:
   sonar_token:
     description: "Token Project Sonar"
     required: true
-  sonar_projetckey:
+  sonar_projectkey:
     description: "Name Project"
     required: true
   github-token:
@@ -32,7 +32,7 @@ runs:
       env: 
        SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
        SONAR_TOKEN: ${{ inputs.sonar_token }}
-       SONAR_PROJETCKEY: ${{ inputs.sonar_projetckey }}
+       SSONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
      
     - name: PR Comment
       uses: actions/github-script@v6
