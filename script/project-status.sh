@@ -33,5 +33,5 @@ fi
 result=$(codeValidation)
 # echo "::set-output name=quality_check::$result"
 
-echo "code=quality_check" >>$result
+echo "quality_check=result" >> $GITHUB_OUTPUT
 
