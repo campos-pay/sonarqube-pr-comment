@@ -30,4 +30,3 @@ echo "quality_check<<EOF" >> $GITHUB_OUTPUT
 echo "$result" >> $GITHUB_OUTPUT
 echo "EOF" >> $GITHUB_OUTPUT
 
-
