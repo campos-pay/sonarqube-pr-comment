@@ -39,11 +39,10 @@ runs:
       with:
         github-token: ${{inputs.github-token}}
         script: |
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: ${{ github.event.number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: `${{ steps.check.outputs.quality_check }}`
           })
-
 
