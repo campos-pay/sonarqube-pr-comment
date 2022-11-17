@@ -8,20 +8,8 @@ project_status="$(curl -s -u ${SONAR_TOKEN}: -G --data-urlencode --data-urlencod
 ${projectStatusUrl})"
 
 codeOk=$(jq -r '.projectStatus.conditions[] | select(.status=="OK") | "\n✅Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "ActualValue: " + .actualValue' <<< "$project_status")
-# codeOk="${codeOk//'%'/'%25'}"
-# codeOk="${codeOk//$'\n'/'%0A'}"
-# codeOk="${codeOk//$'\r'/'%0D'}"
-
-
-# echo "code<<EOF" >> $GITHUB_OUTPUT
-# echo "$codeOk" >> $GITHUB_OUTPUT
-# echo "EOF" >> $GITHUB_OUTPUT
-
 
 codeFail=$(jq -r '.projectStatus.conditions[] | select(.status=="ERROR") | "\n💣Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "ActualValue: " + .actualValue' <<< "$project_status")
-# codeFail="${codeFail//'%'/'%25'}"
-# codeFail="${codeFail//$'\n'/'%0A'}"
-# codeFail="${codeFail//$'\r'/'%0D'}"
 
 error="ERROR CONFIGURATION"
 
@@ -33,16 +21,13 @@ elif [[ ${qualityGateStatus} == "ERROR" ]]; then
      echo "👋 Hey Quality Gate has FAILED.$codeFail"
 else
    echo "quality_check=${error}" >> $GITHUB_OUTPUT
-#    echo "::set-output name=quality_check::$error"
 fi
 }
 
 result=$(codeValidation)
-# echo "::set-output name=quality_check::$result"
 
 echo "quality_check<<EOF" >> $GITHUB_OUTPUT
 echo "$result" >> $GITHUB_OUTPUT
 echo "EOF" >> $GITHUB_OUTPUT
 
-# echo "quality_check=$code" >> $GITHUB_OUTPUT
 
