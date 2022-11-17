@@ -31,8 +31,8 @@ else
 fi
 }
 
-# result=$(codeValidation)
-# echo "::set-output name=quality_check::$result"
+result=$(codeValidation)
+echo "::set-output name=quality_check::$result"
 
-echo "quality_check=${codeOk}" >> $GITHUB_OUTPUT
+# echo "quality_check=${codeOk}" >> $GITHUB_OUTPUT
 
