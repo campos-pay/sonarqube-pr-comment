@@ -11,11 +11,11 @@ codeOk=$(jq -r '.projectStatus.conditions[] | select(.status=="OK") | "\n✅Stat
 # codeOk="${codeOk//'%'/'%25'}"
 # codeOk="${codeOk//$'\n'/'%0A'}"
 # codeOk="${codeOk//$'\r'/'%0D'}"
-codeOk=$(echo $codeOk | tr -s '\n' '\n')
+# codeOk=$(echo $codeOk | tr -s '\n' '\n')
 
-# echo "code<<EOF" >> $GITHUB_OUTPUT
-# echo "$codeOk" >> $GITHUB_OUTPUT
-# echo "EOF" >> $GITHUB_OUTPUT
+echo "code<<EOF" >> $GITHUB_OUTPUT
+echo "$codeOk" >> $GITHUB_OUTPUT
+echo "EOF" >> $GITHUB_OUTPUT
 
 
 codeFail=$(jq -r '.projectStatus.conditions[] | select(.status=="ERROR") | "\n💣Status: " + .status, "MetricKey: " + .metricKey, "Comparator: " + .comparator, "ErrorThreshold: " + .errorThreshold, "ActualValue: " + .actualValue' <<< "$project_status")
@@ -28,7 +28,7 @@ error="ERROR CONFIGURATION"
 codeValidation () {
 
 if [[ ${qualityGateStatus} == "OK" ]]; then
-     echo "👋 Hey Quality Gate has PASSED.'\n'$codeOk"
+     echo "👋 Hey Quality Gate has PASSED.$codeOk"
 elif [[ ${qualityGateStatus} == "ERROR" ]]; then
      echo "👋 Hey Quality Gate has FAILED.$codeFail"
 else
@@ -44,5 +44,5 @@ result=$(codeValidation)
 # echo "$result" >> $GITHUB_OUTPUT
 # echo "EOF" >> $GITHUB_OUTPUT
 
-echo "quality_check=${result}" >> $GITHUB_OUTPUT
+echo "quality_check=$code" >> $GITHUB_OUTPUT
 
