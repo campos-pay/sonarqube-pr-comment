@@ -1,0 +1,13 @@
+files:
+    - documentation:
+        - any: ['*.md']
+    - environment:
+        - any: ['.github/**/*.yml']
+        - any: ['.github/**/**/*.yml']
+        - any: ['*.env.*']
+
+branches:
+    - bug:
+        - fix/*
+    - enhancement:
+        - feature/*
