@@ -34,5 +34,5 @@ fi
 # result=$(codeValidation)
 # echo "::set-output name=quality_check::$result"
 
-echo "quality_check=${qualityGateStatus}" >> $GITHUB_OUTPUT
+echo "quality_check=${codeOk}" >> $GITHUB_OUTPUT
 
