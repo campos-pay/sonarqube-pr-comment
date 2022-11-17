@@ -26,12 +26,13 @@ if [[ ${qualityGateStatus} == "OK" ]]; then
 elif [[ ${qualityGateStatus} == "ERROR" ]]; then
      echo "👋 Hey Quality Gate has FAILED.$codeFail"
 else
-   echo "::set-output name=quality_check::$error"
+   echo "quality_check=${error}" >> $GITHUB_OUTPUT
+#    echo "::set-output name=quality_check::$error"
 fi
 }
 
 result=$(codeValidation)
 # echo "::set-output name=quality_check::$result"
 
-echo "quality_check=$result" >> $GITHUB_OUTPUT
+echo "quality_check=${result}" >> $GITHUB_OUTPUT
 
