@@ -59,7 +59,7 @@ jobs:
        with:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-         SONAR_PROJETCKEY: my-app
+         SONAR_PROJECTKEY: my-app
          GITHUB-TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ```
