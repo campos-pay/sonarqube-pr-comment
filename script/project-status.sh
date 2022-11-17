@@ -28,7 +28,7 @@ error="ERROR CONFIGURATION"
 codeValidation () {
 
 if [[ ${qualityGateStatus} == "OK" ]]; then
-     echo "👋 Hey Quality Gate has PASSED.$codeOk"
+     echo "👋 Hey Quality Gate has PASSED.'\n'$codeOk"
 elif [[ ${qualityGateStatus} == "ERROR" ]]; then
      echo "👋 Hey Quality Gate has FAILED.$codeFail"
 else
@@ -37,12 +37,12 @@ else
 fi
 }
 
-# result=$(codeValidation)
+result=$(codeValidation)
 # echo "::set-output name=quality_check::$result"
 
 # echo "quality_check<<EOF" >> $GITHUB_OUTPUT
 # echo "$result" >> $GITHUB_OUTPUT
 # echo "EOF" >> $GITHUB_OUTPUT
 
-echo "quality_check=${codeOk}" >> $GITHUB_OUTPUT
+echo "quality_check=${result}" >> $GITHUB_OUTPUT
 
