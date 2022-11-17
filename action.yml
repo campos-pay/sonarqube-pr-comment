@@ -35,7 +35,7 @@ runs:
        SONAR_PROJETCKEY: ${{ inputs.sonar_projetckey }}
      
     - name: PR Comment
-      uses: actions/github-script@v2
+      uses: actions/github-script@v6
       with:
         github-token: ${{inputs.github-token}}
         script: |
