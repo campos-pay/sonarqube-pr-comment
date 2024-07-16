@@ -44,10 +44,14 @@ runs:
       uses: actions/github-script@v7
       with:
         github-token: ${{ inputs.github-token }}
-        script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: simpleMessage
-          })
+      script: |
+        const { context, github } = require('@actions/github');
+
+        const simpleMessage = "Este é um comentário simples de teste.";
+
+        github.rest.issues.createComment({
+          issue_number: context.issue.number,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body: simpleMessage
+        });
