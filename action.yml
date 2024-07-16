@@ -27,15 +27,15 @@ runs:
     - name: Checking Sonar
       id: check
       shell: bash
-      run: $GITHUB_ACTION_PATH/script/project-status.sh
+      run: |
+        $GITHUB_ACTION_PATH/script/project-status.sh
+        echo "quality_check=$(<quality_check)" >> $GITHUB_ENV
       env: 
        SONAR_HOST_URL: ${{ inputs.sonar_host_url }}
        SONAR_TOKEN: ${{ inputs.sonar_token }}
        SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
       # Save the output to a file to read it later
-      run: |
-        $GITHUB_ACTION_PATH/script/project-status.sh
-        echo "quality_check=$(<quality_check)" >> $GITHUB_ENV
+
 
     - name: PR Comment
       uses: actions/github-script@v7
