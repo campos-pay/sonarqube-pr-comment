@@ -37,7 +37,7 @@ runs:
       with:
         github-token: ${{ inputs.github-token }}
         script: |
-          const qualityCheck = process.outputs.quality_check.trim();
+          const qualityCheck = steps.check.outputs.quality_check.trim();
 
           if (qualityCheck.length > 0) {
             github.rest.issues.createComment({
