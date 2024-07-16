@@ -45,7 +45,7 @@ runs:
       with:
         github-token: ${{ inputs.github-token }}
         script: |
-          const { context, github } = require('@actions/github');
+          
 
           const simpleMessage = "Este é um comentário simples de teste.";
 
