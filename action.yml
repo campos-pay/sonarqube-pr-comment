@@ -37,7 +37,7 @@ runs:
       with:
         github-token: ${{ inputs.github-token }}
         script: |
-          const { context, github } = require('@actions/github');
+         
 
           const qualityCheck = process.env.quality_check.trim();
           
