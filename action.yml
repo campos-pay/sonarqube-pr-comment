@@ -21,7 +21,6 @@ outputs:
   quality_check:
     description: >
       The resulting Status SonarQube 
-      
 runs:
   using: "composite"
   steps:
@@ -30,19 +29,22 @@ runs:
       shell: bash
       run: $GITHUB_ACTION_PATH/script/project-status.sh
       env: 
-       SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
+       SONAR_HOST_URL: ${{ inputs.sonar_host_url }}
        SONAR_TOKEN: ${{ inputs.sonar_token }}
        SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
-     
+      # Save the output to a file to read it later
+      run: |
+        $GITHUB_ACTION_PATH/script/project-status.sh
+        echo "quality_check=$(<quality_check)" >> $GITHUB_ENV
+
     - name: PR Comment
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       with:
-        github-token: ${{inputs.github-token}}
+        github-token: ${{ inputs.github-token }}
         script: |
           github.rest.issues.createComment({
             issue_number: ${{ github.event.number }},
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `${{ steps.check.outputs.quality_check }}`
+            body: process.env.quality_check
           })
-
