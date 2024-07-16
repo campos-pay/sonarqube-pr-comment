@@ -24,6 +24,9 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Set execute permission for the script
+      run: chmod +x $GITHUB_ACTION_PATH/script/project-status.sh
+      
     - name: Checking Sonar
       id: check
       shell: bash
