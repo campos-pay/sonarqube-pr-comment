@@ -19,8 +19,8 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set execute permission for the script
-      run: chmod +x ${{ github.action_path }}/script/project-status.sh
+    # - name: Set execute permission for the script
+    #   run: chmod +x ${{ github.action_path }}/script/project-status.sh
 
     - name: Checking Sonar
       id: check
