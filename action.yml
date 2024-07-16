@@ -27,9 +27,8 @@ runs:
     - name: Checking Sonar
       id: check
       shell: bash
-      run: |
-        $GITHUB_ACTION_PATH/script/project-status.sh
-        echo "quality_check=$(<quality_check)" >> $GITHUB_ENV
+      run: $GITHUB_ACTION_PATH/script/project-status.sh
+        # echo "quality_check=$(<quality_check)" >> $GITHUB_ENV
       env: 
        SONAR_HOST_URL: ${{ inputs.sonar_host_url }}
        SONAR_TOKEN: ${{ inputs.sonar_token }}
