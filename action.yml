@@ -46,7 +46,7 @@ runs:
         github-token: ${{ inputs.github-token }}
         script: |
           github.rest.issues.createComment({
-            issue_number: ${{ github.event.number }},
+            issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: process.env.quality_check
