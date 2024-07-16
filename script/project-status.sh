@@ -20,12 +20,12 @@ if [[ ${qualityGateStatus} == "OK" ]]; then
 elif [[ ${qualityGateStatus} == "ERROR" ]]; then
      echo "👋 Hey Quality Gate has FAILED.$codeFail"
 else
-   echo "quality_check=${error}" >> $GITHUB_ENV
+   echo "quality_check=${error}" >> $GITHUB_OUTPUT
 fi
 }
 
 result=$(codeValidation)
 
-echo "quality_check<<EOF" >> $GITHUB_ENV
-echo "$result" >> $GITHUB_ENV
-echo "EOF" >> $GITHUB_ENV
+echo "quality_check<<EOF" >> $GITHUB_OUTPUT
+echo "$result" >> $GITHUB_OUTPUT
+echo "EOF" >> $GITHUB_OUTPUT
