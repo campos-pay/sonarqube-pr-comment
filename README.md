@@ -59,8 +59,10 @@ jobs:
        with:
          sonar_token: ${{ secrets.SONAR_TOKEN }}
          sonar_host_url: ${{ secrets.SONAR_HOST_URL }}
-         sonar_projectkey: 'my-app'
+         sonar_projectkey: ${{ github.event.repository.name }}
          github-token: ${{ secrets.GITHUB_TOKEN }}
+         repo_name: ${{ github.repository }}
+         pr_number: ${{ github.event.pull_request.number }}
 
 ```
 ## Example Result
