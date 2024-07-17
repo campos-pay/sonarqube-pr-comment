@@ -17,38 +17,5 @@ outputs:
   quality_check:
     description: "Quality check status from SonarQube"
 runs:
-  using: "composite"
-  steps:
-    - name: Set execute permission for the script
-      shell: bash
-      run: chmod +x ${{ github.action_path }}/script/project-status.sh
-
-    - name: Checking Sonar
-      id: check
-      shell: bash
-      run: ${{ github.action_path }}/script/project-status.sh
-      env:
-        SONAR_HOST_URL: ${{ inputs.sonar_host_url }}
-        SONAR_TOKEN: ${{ inputs.sonar_token }}
-        SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
-
-    - name: PR Comment
-      uses: actions/github-script@v7
-      with:
-        github-token: ${{ inputs.github-token }}
-        script: |
-          const qualityCheck = `${{ steps.check.outputs.quality_check }}`;
-
-          if (qualityCheck.trim().length > 0) {
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: qualityCheck
-            }).catch(error => {
-              console.error('Error creating comment:', error.message);
-              core.setFailed('Failed to create comment');
-            });
-          } else {
-            console.log('No quality check data to comment.');
-          }
+  using: "docker"
+  image: "Dockerfile"
