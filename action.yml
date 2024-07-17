@@ -13,6 +13,12 @@ inputs:
   github-token:
     description: "GitHub token"
     required: true
+  repo_name: 
+    description: "Repository name"
+    required: true
+  pr_number:
+    description: "Pull Request number"
+    required: true
 outputs:
   quality_check:
     description: "Quality check status from SonarQube"
