@@ -31,7 +31,7 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
       with:
         # Disabling shallow clone is recommended for improving relevancy of reporting.
         fetch-depth: 0
@@ -57,10 +57,10 @@ jobs:
        if: always()
        uses: campos-pay/sonarqube-pr-comment@main
        with:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-         SONAR_PROJECTKEY: my-app
-         GITHUB-TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         sonar_token: ${{ secrets.SONAR_TOKEN }}
+         sonar_host_url: ${{ secrets.SONAR_HOST_URL }}
+         sonar_projectkey: 'my-app'
+         github-token: ${{ secrets.GITHUB_TOKEN }}
 
 ```
 ## Example Result
