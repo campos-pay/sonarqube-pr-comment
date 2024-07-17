@@ -38,7 +38,6 @@ def extract_code_details(project_status, status_filter):
         for condition in filtered_conditions
     ]
     
-    print(f"Code details for status '{status_filter}': {details}")
     return ''.join(details)
 
 def code_validation():
@@ -53,7 +52,6 @@ def code_validation():
     else:
         result = "quality_check=ERROR CONFIGURATION"
 
-    print(f"Code validation result: {result}")
     return result
 
 def comment_on_pull_request(body):
