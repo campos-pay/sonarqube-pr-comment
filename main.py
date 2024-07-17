@@ -13,8 +13,6 @@ PR_NUMBER = os.getenv('PR_NUMBER')  # Pull Request number
 
 def get_quality_gate_status():
     quality_gate_url = f"{SONAR_HOST_URL}/api/qualitygates/project_status?projectKey={SONAR_PROJECTKEY}"
-    print(f"Retrieving quality gate status from: {quality_gate_url}")
-
     # Make the request to the SonarQube API
     response = requests.get(quality_gate_url, auth=(SONAR_TOKEN, ''))
     response.raise_for_status()
@@ -44,7 +42,6 @@ def extract_code_details(project_status, status_filter):
     return ''.join(details)
 
 def code_validation():
-    print("Starting code validation.")
     quality_gate_status, project_status = get_quality_gate_status()
 
     if quality_gate_status == "OK":
@@ -60,7 +57,6 @@ def code_validation():
     return result
 
 def comment_on_pull_request(body):
-    print("Authenticating with GitHub.")
     # Authenticate with GitHub
     g = Github(GITHUB_TOKEN)
     repo = g.get_repo(REPO_NAME)
@@ -69,10 +65,8 @@ def comment_on_pull_request(body):
     print(f"Commenting on Pull Request #{PR_NUMBER}.")
     # Comment on the Pull Request
     pull_request.create_issue_comment(body)
-    print("Comment successfully added.")
 
 if __name__ == "__main__":
-    print("Script started.")
     # Execute code validation
     result = code_validation()
     
