@@ -25,3 +25,10 @@ outputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+  env:
+    SONAR_HOST_URL: ${{ inputs.sonar_host_url }}
+    SONAR_TOKEN: ${{ inputs.sonar_token }}
+    SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
+    GITHUB_TOKEN: ${{ inputs.github-token }}
+    REPO_NAME: ${{ inputs.repo_name }}
+    PR_NUMBER: ${{ inputs.pr_number }}
