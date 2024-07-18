@@ -1,48 +1,34 @@
-name: "SonarQube Pull Request Comment"
-description: >
-  Check if a project / analysis passed the Quality Gate check
-branding:
-  icon: 'git-pull-request'
-  color: 'green'
+name: "SonarQube PR Comment Action"
+description: "Checks SonarQube Quality Gate status and comments on a pull request."
 inputs:
   sonar_host_url:
-    description: "SonarQube Url"
+    description: "SonarQube URL"
     required: true
   sonar_token:
-    description: "Token Project Sonar"
+    description: "SonarQube authentication token"
     required: true
   sonar_projectkey:
-    description: "Name Project"
+    description: "SonarQube project key"
     required: true
   github-token:
-    description: "GitHub Token"
+    description: "GitHub token"
+    required: true
+  repo_name: 
+    description: "Repository name"
+    required: true
+  pr_number:
+    description: "Pull Request number"
     required: true
 outputs:
   quality_check:
-    description: >
-      The resulting Status SonarQube 
-      
+    description: "Quality check status from SonarQube"
 runs:
-  using: "composite"
-  steps:
-    - name: Checking Sonar
-      id: check
-      shell: bash
-      run: $GITHUB_ACTION_PATH/script/project-status.sh
-      env: 
-       SONAR_HOST_URL: ${{ inputs.sonar_host_url}}
-       SONAR_TOKEN: ${{ inputs.sonar_token }}
-       SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
-     
-    - name: PR Comment
-      uses: actions/github-script@v7
-      with:
-        github-token: ${{inputs.github-token}}
-        script: |
-          github.rest.issues.createComment({
-            issue_number: ${{ github.event.number }},
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `${{ steps.check.outputs.quality_check }}`
-          })
-
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    SONAR_HOST_URL: ${{ inputs.sonar_host_url }}
+    SONAR_TOKEN: ${{ inputs.sonar_token }}
+    SONAR_PROJECTKEY: ${{ inputs.sonar_projectkey }}
+    GITHUB_TOKEN: ${{ inputs.github-token }}
+    REPO_NAME: ${{ inputs.repo_name }}
+    PR_NUMBER: ${{ inputs.pr_number }}
