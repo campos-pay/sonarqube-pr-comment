@@ -4,7 +4,7 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . .
 # Install build dependencies for cryptography
-RUN pip install --target=/app requests pygithub
+RUN pip install --no-cache-dir --target=/app requests pygithub
 
 # Use a minimal distroless image for production
 FROM gcr.io/distroless/python3-debian12
