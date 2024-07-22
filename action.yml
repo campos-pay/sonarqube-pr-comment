@@ -1,5 +1,8 @@
 name: "SonarQube PR Comment Action"
 description: "Checks SonarQube Quality Gate status and comments on a pull request."
+branding:
+  icon: 'git-pull-request'
+  color: 'green'
 inputs:
   sonar_host_url:
     description: "SonarQube URL"
