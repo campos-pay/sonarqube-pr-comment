@@ -1,4 +1,4 @@
-name: "SonarQube PR Comment Action"
+name: "SonarQube Pull Request Comment"
 description: "Checks SonarQube Quality Gate status and comments on a pull request."
 branding:
   icon: 'git-pull-request'
