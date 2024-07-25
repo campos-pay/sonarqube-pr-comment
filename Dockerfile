@@ -20,4 +20,3 @@ ENV PYTHONPATH /app
 
 # Define the command to run the application
 ENTRYPOINT ["python3", "/app/main.py"]
-

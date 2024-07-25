@@ -23,34 +23,31 @@ def get_quality_gate_status():
     print(f"Quality gate status retrieved: {quality_gate_status}")
     return quality_gate_status, project_status
 
-def extract_code_details(project_status, status_filter):
-    # Filter conditions based on status ("OK" or "ERROR")
+def extract_code_details(project_status):
+    # Extract all conditions regardless of their status
     conditions = project_status['projectStatus']['conditions']
-    filtered_conditions = [condition for condition in conditions if condition['status'] == status_filter]
 
-    # Create formatted strings with details of the filtered conditions
-    details = [
-        f"\n{'✅' if status_filter == 'OK' else '💣'}Status: {condition['status']}, \n"
-        f"MetricKey: {condition['metricKey']}\n"
-        f"Comparator: {condition['comparator']}\n"
-        f"ErrorThreshold: {condition['errorThreshold']}\n"
-        f"ActualValue: {condition['actualValue']}\n"
-        for condition in filtered_conditions
-    ]
+    # Start creating a Markdown table
+    table = "\n| **Metric** | **Value** |\n|------------|-----------|\n"
     
-    return ''.join(details)
+    # Fill the table with metric details
+    for condition in conditions:
+        metric = condition['metricKey'].replace('_', ' ')
+        actual_value = condition['actualValue']
+        if isinstance(actual_value, float):
+            actual_value = f"{actual_value:.1f}"  # Format floats to 1 decimal place
+        table += f"| {metric} | {actual_value} |\n"
+    
+    return table
 
 def code_validation():
     quality_gate_status, project_status = get_quality_gate_status()
 
-    if quality_gate_status == "OK":
-        code_ok = extract_code_details(project_status, "OK")
-        result = f"👋 Hey, the Quality Gate has PASSED.{code_ok}"
-    elif quality_gate_status == "ERROR":
-        code_fail = extract_code_details(project_status, "ERROR")
-        result = f"👋 Hey, the Quality Gate has FAILED.{code_fail}"
-    else:
-        result = "quality_check=ERROR CONFIGURATION"
+    # Construct the result with the overall status and the detailed metrics table
+    status_emoji = '✅' if quality_gate_status == "OK" else '💣'
+    result = f"{status_emoji} **Status: {quality_gate_status}**\n"
+    details_table = extract_code_details(project_status)
+    result += details_table
 
     return result
 
