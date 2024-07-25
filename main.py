@@ -32,10 +32,11 @@ def extract_code_details(project_status):
     
     # Fill the table with metric details
     for condition in conditions:
+        print(f"Processing condition: {condition}")  # Debugging output
         metric = condition['metricKey'].replace('_', ' ')
         actual_value = condition['actualValue']
-        if isinstance(actual_value, float):
-            actual_value = f"{actual_value:.1f}"  # Format floats to 1 decimal place
+        if isinstance(actual_value, (int, float)):
+            actual_value = f"{actual_value:.1f}" if isinstance(actual_value, float) else str(actual_value)  # Format floats to 1 decimal place
         table += f"| {metric} | {actual_value} |\n"
     
     return table
