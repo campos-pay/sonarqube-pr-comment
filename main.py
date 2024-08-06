@@ -10,6 +10,7 @@ SONAR_TOKEN = os.getenv('SONAR_TOKEN')
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')  # GitHub token
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')  # Ex: "user/repository"
 PR_NUMBER = os.getenv('PR_NUMBER')  # Pull Request number
+GITHUB_API_BASE_URL = os.getenv('GITHUB_API_BASE_URL') or None
 
 def get_quality_gate_status():
     quality_gate_url = f"{SONAR_HOST_URL}/api/qualitygates/project_status?projectKey={SONAR_PROJECTKEY}"
@@ -54,9 +55,13 @@ def code_validation():
 
     return result
 
-def comment_on_pull_request(body):
+def comment_on_pull_request(body, base_url=None):
     # Authenticate with GitHub
-    g = Github(GITHUB_TOKEN)
+    if base_url is not None:
+        g = Github(GITHUB_TOKEN, base_url=base_url)
+    else:
+        g = Github(GITHUB_TOKEN)
+        
     repo = g.get_repo(REPO_NAME)
     pull_request = repo.get_pull(int(PR_NUMBER))
 
@@ -70,6 +75,6 @@ if __name__ == "__main__":
     
     # Comment on the Pull Request
     if GITHUB_TOKEN and REPO_NAME and PR_NUMBER:
-        comment_on_pull_request(result)
+        comment_on_pull_request(result, base_url=GITHUB_API_BASE_URL)
     else:
         print("Error: GitHub token, repository, or PR number not configured.")
