@@ -74,7 +74,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repo_name: ${{ github.repository }}
           pr_number: ${{ github.event.pull_request.number }}
-          github_api_base_url: "https://ourselfhostedgithub.com/api/v3" # OPTIONAL but useful if you are NOT using github.com
 ```
 ## Example Result
 For result Ok 
