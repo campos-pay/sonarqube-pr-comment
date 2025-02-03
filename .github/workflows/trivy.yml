@@ -1,0 +1,33 @@
+name: Trivy Scan
+
+on:
+  push:
+    branches:
+      - trivy
+  workflow_dispatch:
+  schedule:
+    - cron: '00 12 * * 5'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: sonarqube-pr-comment
+
+      - name: Scan Vulnerabilities Image Docker.
+        uses: aquasecurity/trivy-action@v0.29.0
+        with:
+          image-ref: 'sonarqube-pr-comment'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
