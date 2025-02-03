@@ -4,7 +4,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . .
 # Install build dependencies 
-RUN pip install --target=/app requests pygithub
+RUN pip install --upgrade pip && \ 
+    pip install --target=/app requests pygithub
 
 # Use a minimal distroless image for production
 FROM gcr.io/distroless/python3-debian12
